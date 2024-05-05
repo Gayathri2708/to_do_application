@@ -1,47 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:to_do_application/constants/appThemeColors.dart';
+import 'package:to_do_application/constants/services/navigation_service.dart';
 import 'package:to_do_application/controller/todo_controller.dart';
 
-class AddTaskScreen extends StatelessWidget {
+class AddTasks extends StatelessWidget {
   final TextEditingController textController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
 
   final ToDoController toDoController = Get.put(ToDoController());
 
+  AddTasks({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Task"),
+        iconTheme: const IconThemeData(color: Colors.white, size: 30),
+        backgroundColor: appThemeColors.appThemeColor,
+        title: const Text(
+          "Add Task",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
-              decoration: InputDecoration(
-                labelText: 'Task title',
+              decoration: const InputDecoration(
+                labelText: 'Title',
               ),
               controller: textController,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             TextField(
-              decoration: InputDecoration(
-                labelText: 'Task description',
+              decoration: const InputDecoration(
+                labelText: 'Description',
               ),
               controller: descriptionController,
             ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                toDoController.addTask(
-                  textController.text,
-                  descriptionController.text,
-                );
-                Get.back(); // Navigate back to the previous screen
-              },
-              child: Text('Save'),
+            const SizedBox(height: 40.0),
+            Center(
+              child: SizedBox(
+                width: 400,
+                height: 50,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    backgroundColor: appThemeColors.appThemeColor,
+                    elevation: 2.0,
+                  ),
+                  onPressed: () {
+                    toDoController.addTask(
+                      textController.text,
+                      descriptionController.text,
+                    );
+                    NavigationService().navigateBack();
+                  },
+                  child: const Text(
+                    'Add',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
