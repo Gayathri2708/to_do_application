@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:to_do_application/constants/appThemeColors.dart';
+import 'package:to_do_application/constants/app_theme_colors.dart';
 import 'package:to_do_application/constants/images.dart';
 import 'package:to_do_application/constants/routes/app_routes.dart';
 import 'package:to_do_application/constants/services/navigation_service.dart';
 import 'package:to_do_application/controller/todo_controller.dart';
-import 'package:to_do_application/widgets/addTasks.dart';
+import 'package:to_do_application/widgets/pages/add_task.dart';
 
 class ToDoView extends StatelessWidget {
   final ToDoController toDoController = Get.put(ToDoController());
@@ -15,9 +15,9 @@ class ToDoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appThemeColors.appScaffoldColor,
+      backgroundColor: AppThemeColors.appScaffoldColor,
       appBar: AppBar(
-        backgroundColor: appThemeColors.appThemeColor,
+        backgroundColor: AppThemeColors.appThemeColor,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -39,45 +39,54 @@ class ToDoView extends StatelessWidget {
                 elevation: 3.0,
                 margin: const EdgeInsets.all(15),
                 child: ListTile(
-                  visualDensity: VisualDensity(horizontal: 0, vertical: -1.0),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.edit,
-                          size: 20,
-                          color: appThemeColors.appThemeColor,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.delete,
-                          size: 20,
-                          color: appThemeColors.appThemeColor,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.check_circle,
-                          size: 20,
-                          color: appThemeColors.appThemeColor,
-                        ),
-                      ),
-                    ],
-                  ),
+                  visualDensity:
+                      const VisualDensity(horizontal: 0, vertical: -1.0),
                   title: Text(
                     task.title,
                     style: const TextStyle(
-                        color: appThemeColors.appThemeColor,
+                        color: AppThemeColors.appThemeColor,
                         fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(
                     task.description,
                     style: const TextStyle(color: Colors.black),
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      IconButton(
+                        onPressed: () {
+                          NavigationService.navigate(AppRoutes.editTask,
+                              arguments: toDoController.tasks[index]);
+                        },
+                        icon: const Icon(
+                          Icons.edit,
+                          size: 20,
+                          color: AppThemeColors.appThemeColor,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          toDoController.deleteTask(index);
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                          size: 20,
+                          color: AppThemeColors.appThemeColor,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          toDoController.completedTasks(true);
+                          Colors.green;
+                        },
+                        icon: const Icon(
+                          Icons.check_circle,
+                          size: 20,
+                          color: AppThemeColors.appThemeColor,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -86,13 +95,13 @@ class ToDoView extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: appThemeColors.appThemeColor,
+        backgroundColor: AppThemeColors.appThemeColor,
         child: const Icon(
           Icons.add,
           color: Colors.white,
         ),
         onPressed: () {
-          NavigationService().navigate(AppRoutes.addTasks);
+          NavigationService.navigate(AppRoutes.addTask);
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -100,18 +109,18 @@ class ToDoView extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.list,
-              color: appThemeColors.appThemeColor,
+              color: AppThemeColors.appThemeColor,
             ),
             label: 'All',
-            backgroundColor: appThemeColors.appThemeColor,
+            backgroundColor: AppThemeColors.appThemeColor,
           ),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.check,
-                color: appThemeColors.appThemeColor,
+                color: AppThemeColors.appThemeColor,
               ),
               label: 'Completed',
-              backgroundColor: appThemeColors.appThemeColor)
+              backgroundColor: AppThemeColors.appThemeColor)
         ],
         currentIndex: toDoController.selectedIndex.value,
         onTap: (index) {

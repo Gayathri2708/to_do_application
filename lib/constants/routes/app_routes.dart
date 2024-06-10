@@ -1,4 +1,6 @@
 class AppRoutes {
+  AppRoutes._();
   static const initial = '/';
-  static const addTasks = '/addTasks';
+  static const addTask = '/addTask';
+  static const editTask = '/editTask';
 }

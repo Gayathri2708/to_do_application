@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:to_do_application/constants/appThemeColors.dart';
+import 'package:to_do_application/constants/app_theme_colors.dart';
 import 'package:to_do_application/constants/services/navigation_service.dart';
 import 'package:to_do_application/controller/todo_controller.dart';
 
-class AddTasks extends StatelessWidget {
+class AddTask extends StatelessWidget {
   final TextEditingController textController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
 
   final ToDoController toDoController = Get.put(ToDoController());
 
-  AddTasks({super.key});
+  AddTask({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white, size: 30),
-        backgroundColor: appThemeColors.appThemeColor,
+        backgroundColor: AppThemeColors.appThemeColor,
         title: const Text(
           "Add Task",
           style: TextStyle(color: Colors.white),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(25.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -50,7 +50,7 @@ class AddTasks extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    backgroundColor: appThemeColors.appThemeColor,
+                    backgroundColor: AppThemeColors.appThemeColor,
                     elevation: 2.0,
                   ),
                   onPressed: () {
@@ -58,7 +58,7 @@ class AddTasks extends StatelessWidget {
                       textController.text,
                       descriptionController.text,
                     );
-                    NavigationService().navigateBack();
+                    NavigationService.navigateBack();
                   },
                   child: const Text(
                     'Add',
